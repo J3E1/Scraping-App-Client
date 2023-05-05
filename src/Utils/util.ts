@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// const API_URL = import.meta.env.VITE_SERVER_URL;
+// const API_URL = 'http://localhost:99/api/scrap';
 const API_URL = `https://scraping-app.vercel.app/api/scrap`;
 
 export type ScrappedData = {
@@ -23,15 +23,20 @@ type ResponseSuccessType = {
 };
 
 export const scrapUrl = async (url: string, screenshotMode = false) => {
-	const res = await fetch(API_URL, {
-		method: 'POST',
-		body: JSON.stringify({ url, generateScreenshot: screenshotMode }),
-		headers: {
-			'content-type': 'application/json',
-		},
-	});
+	// const res = await fetch(API_URL, {
+	// 	method: 'POST',
+	// 	body: JSON.stringify({ url, generateScreenshot: screenshotMode }),
+	// 	headers: {
+	// 		'content-type': 'application/json',
+	// 	},
+	// });
 
-	// const res = await axios.post(API_URL, { url });
-	const data: ResponseErrorType | ResponseSuccessType = await res.json();
+	const res = await axios.post(API_URL, {
+		url,
+		generateScreenshot: screenshotMode,
+	});
+	const data: ResponseErrorType | ResponseSuccessType = await res.data;
+	// const data: ResponseErrorType | ResponseSuccessType = await res.json();
+	console.log('🚀 ~ file: util.ts:33 ~ scrapUrl ~ res:', data);
 	return data;
 };

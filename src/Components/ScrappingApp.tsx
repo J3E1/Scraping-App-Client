@@ -9,8 +9,7 @@ type Props = {};
 export default function ScrappingApp({}: Props) {
 	const [url, setUrl] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	// const [screenshotPath, setScreenshotPath] = useState('');
-	const [screenshot, setScreenshot] = useState('');
+	const [screenshotPath, setScreenshotPath] = useState('');
 	const [screenshotMode, setScreenshotMode] = useState(false);
 	const [sData, setSData] = useState<ScrappedData>({} as ScrappedData);
 
@@ -44,7 +43,7 @@ export default function ScrappingApp({}: Props) {
 				toast.error(scrappedData.error);
 			} else {
 				if (typeof scrappedData.data === 'string') {
-					setScreenshot(`data:image/png;base64,${scrappedData.data}`);
+					setScreenshotPath(scrappedData.data);
 				} else {
 					setSData(scrappedData.data);
 				}
@@ -79,16 +78,16 @@ export default function ScrappingApp({}: Props) {
 							Scrape
 						</button>
 						<button
-							onClick={() => setScreenshotMode(true)}
 							disabled
-							className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded ml-2 disabled:hover:cursor-not-allowed'
+							onClick={() => setScreenshotMode(true)}
+							className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded ml-2 cursor-not-allowed'
 							type='submit'>
 							Screenshot
 						</button>
 					</div>
 				</form>
 				{Object.keys(sData).length !== 0 && <Result {...sData} />}
-				{screenshot && <ScreenShot path={screenshot} />}
+				{screenshotPath && <ScreenShot path={screenshotPath} />}
 			</div>
 		</div>
 	);

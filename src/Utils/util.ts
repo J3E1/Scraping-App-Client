@@ -37,6 +37,5 @@ export const scrapUrl = async (url: string, screenshotMode = false) => {
 	});
 	const data: ResponseErrorType | ResponseSuccessType = await res.data;
 	// const data: ResponseErrorType | ResponseSuccessType = await res.json();
-	console.log('🚀 ~ file: util.ts:33 ~ scrapUrl ~ res:', data);
 	return data;
 };
